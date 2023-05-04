@@ -40,35 +40,35 @@ public class MainActivity extends AppCompatActivity {
         ResetButton = findViewById(R.id.resetButton);
         PaymentType = findViewById(R.id.paymentType);
 
-        SplitButton.OnClickListener(new View.OnClickListener() {
+        SplitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Code for the action
 
-                //Assigning values and variables
+                //Assigning variables for values
                 String original = AmountInput.getText().toString();
-                int originalprice = Integer.parseInt(original);
+                double originalprice = Double.parseDouble(original);
                 String paxnum = PaxInput.getText().toString();
                 int pax = Integer.parseInt(paxnum);
                 String discountpercent = DiscountInput.getText().toString();
-                int discount = Integer.parseInt(discountpercent);
+                double discount = Double.parseDouble(discountpercent);
 
                 //Price calculation after GST, SVS and discount
                 boolean isChecked1 = GSTToggle.isChecked();
                 boolean isChecked2 = SVSToggle.isChecked();
-                
+
                 if (isChecked2) {
-                    int originalprice = originalprice * 1.1;
+                     originalprice = originalprice * 1.1;
                 }
                 else if (isChecked1) {
-                    int originalprice = originalprice * 1.08;
+                     originalprice = originalprice * 1.08;
                 }
                 else if (isChecked1 && isChecked2) {
-                    int originalprice = originalprice * 1.08 * 1.1;
+                     originalprice = originalprice * 1.08 * 1.1;
                 }
 
-                int total = originalprice;
-                int total1 = total*(1 - (discount/100));
+                double total = originalprice;
+                double total1 = total*(1 - (discount/100));
 
                 //Output messages
                 String stringResponse1 = "Total Bill: $" + total1;
@@ -88,5 +88,17 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        ResetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Code for the action
+                TotalBill.setText("");
+                SplitBill.setText("");
+                PaxInput.setText("");
+                AmountInput.setText("");
+                DiscountInput.setText("");
+            }
+        });
+
     }
 }
